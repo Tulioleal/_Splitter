@@ -1,15 +1,12 @@
-import Link from 'next/link'
 import styles from './Button.module.scss'
 
-const Button = ({ title, href }) => {
+const Button = ({ title, onClick }) => {
     return (
-        <Link
-            href={href}
-        >
-            <button className={styles.btn}>
-                {title}
-            </button>
-        </Link>
+        <button
+            onClick={onClick}
+            className={styles.btn}>
+            {title}
+        </button>
     )
 }
 

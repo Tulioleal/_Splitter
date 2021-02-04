@@ -1,15 +1,13 @@
 @import '../../styles/variables.scss';
 
 .btn{
-    width: fit-content;
     color: $P-DBlue;
-    margin: 1em 0em;
+    background-color: $S-LBlue;
     font-size: 1.4em;
     font-weight: 700;
     padding: .7em .9em;
-    background-color: $S-LBlue;
-    border: none;
     border-radius: 10px;
+    border: none;
     box-shadow: 2px 2px 2px 1px $P-DBlue;
     outline: none;
     cursor: pointer;

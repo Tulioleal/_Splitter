@@ -1,0 +1,32 @@
+@import '../styles/variables.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h2,.results{
+        margin-bottom: 1.5em;
+    }
+
+    .results{
+        width: 100%;
+        border-bottom: 2px solid $P-DBlue;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+
+        h3{
+            width: fit-content;
+            text-align: left;
+            color: $P-DBlue;
+        }
+        span{
+            font-size: 1.3em;
+            align-self: flex-end;
+        }
+    }
+
+    .title{
+        margin: 1em 0em;
+    }
+}

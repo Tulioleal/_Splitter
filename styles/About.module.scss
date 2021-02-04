@@ -3,17 +3,12 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-
-    h2,
-    h3,
-    p {
-        margin-bottom: 1em;
-    }
+    justify-content: space-between;
+    height: 120vh;
 
     h3 {
+        margin-top: .5em;
         background-color: $B-Blue;
-        margin: 0em 1em 1em  1em;
     }
 
     .noBckg{

@@ -1,0 +1,14 @@
+.container{
+    width: 100%;
+    height: fit-content;
+    background-color: #235784;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo{
+        width: 100px;
+        height: 100px;
+    }
+}

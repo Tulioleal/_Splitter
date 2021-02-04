@@ -1,0 +1,49 @@
+@import '../styles/variables.scss';
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: center;
+
+    .input{
+        text-align: center;
+        color: $White;
+        font-size: 1.3em;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $P-DBlue;
+        outline: none;
+
+        &::placeholder{
+            color: #DDDDDD;
+        }
+    }
+
+    .row{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+.friend{
+    padding: 2em 1.5em;
+
+    .input:first-child{
+        margin-bottom: .5em;
+    }
+    &:nth-child(2n){
+        background-color: $B-Blue;
+
+        .input{
+            color: $White;
+            border-bottom: 2px solid $White;
+
+            &::placeholder{
+                color: $P-DBlue;
+            }
+        }
+    }
+}

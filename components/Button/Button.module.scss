@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.btn{
+    color: $P-DBlue;
+    background-color: $S-LBlue;
+    font-size: 1.4em;
+    font-weight: 700;
+    padding: .7em .9em;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 2px 2px 1px $P-DBlue;
+}

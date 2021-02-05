@@ -1,9 +1,16 @@
-import styles from '../styles/Calculate.module.scss'
+import styles from '../../styles/Calculate.module.scss'
+import { useRouter } from 'next/router'
 
 const calculate = () => {
+    const router = useRouter()
+        
+    const total = () => {
+
+    }
+
     return (
         <div className={styles.container}>
-            <h2>Gathering name</h2>
+            <h2>{router.query.calculate}</h2>
 
             <div className={styles.results}>
                 <h3>Total</h3>

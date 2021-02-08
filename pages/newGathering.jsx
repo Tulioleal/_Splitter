@@ -1,8 +1,8 @@
 import Button from "../components/Button/Button";
-import ButtonLink from "../components/ButtonLink/ButtonLink";
 import styles from "../styles/NewGathering.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import localForage from "localforage";
 
 /* const Friend = ({ placeholder, indexN }) => {
     const [name, setName] = useState("")
@@ -63,14 +63,31 @@ const newGathering = () => {
   };
 
   const sendGathering = () => {
-    if ( gathName && friends && localStorage.getItem(`splitter-${gathName}`) === null ) {
-      localStorage.setItem(`splitter-${gathName}`, JSON.stringify(friends));
+
+    if ( gathName ) {
+      localForage.setItem(
+        gathName, {
+          friends,
+          'createdAt': Date.now()
+        }
+      ).then((data) => console.log(data))
       return true;
     } else {
       alert("no");
       return false;
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    sendGathering() && router.push({
+      pathname: `/results/calculate`,
+      query: {
+        gathName: gathName
+      }
+    
+    })
+  }
 
   const handleInputChange = (index, event) => {
     const values = [...friends];
@@ -84,7 +101,7 @@ const newGathering = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleSubmit} className={styles.container}>
       <input
         type="text"
         placeholder="Gathering name"
@@ -95,17 +112,17 @@ const newGathering = () => {
       <Button onClick={addFriend} title="Add a friend" />
 
       {friends.map((friend, index) => (
-        <div className={styles.friend}>
+        <div key={`container-${index}`} className={styles.friend}>
           <input
             type="text"
-            placeholder={index === 0 ? "First name" : "Friend's name"}
+            placeholder={index === 0 ? "Your name" : "Friend's name"}
             value={friend.name}
             name="name"
             id="name"
             onChange={(event) => handleInputChange(index, event)}
             className={styles.input}
-            key={`${index}-name`}
-            required={true}
+            key={`name-${index}`}
+            required = {true}
           />
           <input
             type="number"
@@ -115,8 +132,8 @@ const newGathering = () => {
             id="amount"
             onChange={(event) => handleInputChange(index, event)}
             className={styles.input}
-            key={`${index}-amount`}
-            required={true}
+            key={`amount-${index}`}
+            required = {true}
           />
         </div>
       ))}
@@ -127,13 +144,10 @@ const newGathering = () => {
       </div>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault
-          sendGathering() ? router.push(`/results/${gathName}`) : router.push(`/newGathering`)
-        }}
+        type='submit'
         title="Calculate"
       />
-    </div>
+    </form>
   );
 };
 

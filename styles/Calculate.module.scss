@@ -26,6 +26,41 @@
         }
     }
 
+    .list{
+        padding-left: 0em;
+
+        .row{
+            padding: 1em;
+            display: flex;
+            justify-content: space-between;
+
+            &:nth-child(2n){
+                color: $S-LBlue;
+                background-color: $B-Blue;
+            }
+
+            li{
+                list-style: none;
+                font-weight: 700;
+                text-align: left;
+                max-width: 50%;
+                align-self: center;
+
+                &:nth-child(2){
+                    text-align: right;
+                }
+            }
+
+            .pos{
+                color: green;
+            }
+
+            .neg{
+                color: red;
+            }
+        }
+    }
+
     .title{
         margin: 1em 0em;
     }

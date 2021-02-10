@@ -6,7 +6,7 @@ const Button = ({ title, onClick, type }) => {
             onClick={onClick}
             className={styles.btn}
             type={type}
-            >
+        >
             {title}
         </button>
     )

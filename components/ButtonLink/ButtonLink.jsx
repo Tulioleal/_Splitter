@@ -13,4 +13,8 @@ const ButtonLink = ({ title, href, type }) => {
     )
 }
 
+ButtonLink.defaultProps = {
+    type: 'button'
+}
+
 export default ButtonLink

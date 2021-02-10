@@ -47,8 +47,8 @@ const newGathering = () => {
   ]);
 
   const addFriend = () => {
-    if (friends.length >= 15) {
-      return alert("Sory 15 our limit :(");
+    if (friends.length >= 10) {
+      return alert("Sory 10 our limit :(");
     }
     const newFriends = [...friends, { name: "", amount: 0 }];
     setFriends(newFriends);

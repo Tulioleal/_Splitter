@@ -1,16 +1,20 @@
 import styles from "../../styles/Calculate.module.scss";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import Button from '../../components/Button/Button'
+import ButtonLink from '../../components/ButtonLink/ButtonLink'
 import localforage from "localforage";
 
 const calculate = () => {
   const router = useRouter();
 
+  const [count, setCount] = useState(0);
+
   const [task, settask] = useState({});
 
-  const [friends, setfriends] = useState([]);
+  const [friends, setFriends] = useState([]);
 
-  const [posNeg, setPosNeg] = useState({})
+  const [results, setResults] = useState([]);
 
   const total = (gath) => {
     let total = 0;
@@ -40,7 +44,53 @@ const calculate = () => {
       friend.amount = parseInt(friend.amount) - parseFloat(gath.each);
     });
 
-    setfriends(friends);
+    setFriends(friends);
+  };
+
+  const compareResults = () => {
+
+    const negFnc = (friends.filter( friend => friend.amount < 0)).reverse()
+    const posFnc = friends.filter( friend => friend.amount > 0);
+    
+    const arr = [];
+
+    let neg1 = [].concat(negFnc)
+    let pos1= [].concat(posFnc)
+
+    for (let i = 0; i < pos1.length; i++) {
+      let num = 0;
+
+      while (pos1[i].amount > 0) {
+        if (neg1[num]) {
+          let res = parseFloat((pos1[i].amount + neg1[num].amount).toFixed(2));
+
+          if (res > 0) {
+            neg1[num].amount != 0 &&
+              arr.push(`${neg1[num].name} pays ${(neg1[num].amount * -1).toFixed(2)} to ${pos1[i].name}`);
+            pos1[i].amount = res;
+            neg1[num].amount = 0;
+            num++;
+            console.log(res, 1)
+          } else if (res < 0) {
+            pos1[i].amount != 0 &&
+              arr.push(`${neg1[num].name} pays ${pos1[i].amount.toFixed(2)} to ${pos1[i].name}`);
+            pos1[i].amount = 0;
+            neg1[num].amount = res;
+            console.log(res, 2)
+          } else {
+            pos1[i].amount != 0 &&
+              arr.push(`${neg1[num].name} pays ${pos1[i].amount.toFixed(2)} to ${pos1[i].name}`);
+            pos1[i].amount = 0;
+            neg1[num].amount = 0;
+            console.log(res, 3)
+          }
+        } else {
+          return;
+        }
+      }
+    }
+    setResults(arr);
+    console.log(arr, count)
   };
 
   useEffect(() => {
@@ -53,6 +103,7 @@ const calculate = () => {
           eachFriend(returnedGath);
           settask(returnedGath);
           sortAndSet(returnedGath);
+          compareResults()
         }
       });
     } catch (err) {
@@ -60,41 +111,17 @@ const calculate = () => {
     }
   }, []);
 
-  let negFnc = friends.filter( ar => ar.amount < 0 )
-  negFnc = negFnc.reverse()
-
-  const posFnc = friends.filter( ar => ar.amount > 0 )
-  const eqFnc = friends.filter( ar => ar.amount === 0 )
-
-  const result = ( pos , neg ) => {
-
-    let action = []
-
-    let maxP = pos[0].amount
-    let maxN = neg[0].amount
-    let res = maxP + maxN
-
-    if ( res > 0 ) {
-        action[0] = `${neg[0].name} pays ${neg[0].amount * -1} to ${pos[0].name} >`
-        pos[0].amount = res
-        neg[0].amount = 0
-    } else if ( res < 0 ) {
-        action[0] = `${neg[0].name} pays ${pos[0].amount} to ${pos[0].name} <`
-        pos[0].amount = 0
-        neg[0].amount = res
-    } else{
-        action[0] = `${neg[0].name} pays ${pos[0].amount} to ${pos[0].name} def`
-        pos.amount = res
-        neg.amount = res
-    }   
-
-    console.log(action, pos, neg, res)
-  }
-
-  const cls = () => console.log(result(posFnc, negFnc));
+  const cls = () => {
+    if (count == 0) {
+      compareResults()
+      setCount(1)
+    } else {
+      return
+    }
+   }
 
   return (
-    <div onClick={cls} className={styles.container}>
+    <div className={styles.container}>
       <h2>{router.query.gathName}</h2>
 
       <div className={styles.results}>
@@ -128,15 +155,30 @@ const calculate = () => {
         ))}
       </ul>
 
-      <h3 className={styles.title}>Suggestions</h3>
+      <Button
+        onClick={cls}
+        title='Show Suggestions'
+      />
+      
+      <ul className={styles.list}>
+        {
+          results.map( (result, index) => (
+            <li key={index} className={styles.item} >{result}</li>
+          ))
+        }
+      </ul>
 
-    {
+      <div className={styles.row}>
+        <ButtonLink
+          title='New Gathering'
+          href='/newGathering'
+        />
+        <ButtonLink
+          title='Gatherings'
+          href='/gatherings'
+        />
+      </div>
 
-    }
-
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta alias quidem nihil ex, aspernatur odit?
-      </p>
     </div>
   );
 };

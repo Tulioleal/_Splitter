@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     h2,.results{
         margin-bottom: 1.5em;
     }
@@ -29,9 +30,23 @@
     .list{
         padding-left: 0em;
 
+        .item{
+            padding: .3em 10%;
+            text-align: center;
+            font-size: 2em;
+            list-style: none;
+            font-weight: 700;
+            align-self: center;
+
+            &:nth-child(2n){
+                color: $S-LBlue;
+                background-color: $B-Blue;
+            }            
+        }
+
         .row{
+            margin-top: 0em;
             padding: 1em;
-            display: flex;
             justify-content: space-between;
 
             &:nth-child(2n){
@@ -61,7 +76,13 @@
         }
     }
 
-    .title{
-        margin: 1em 0em;
+    Button{
+        align-self: center;
+    }
+
+    .row{
+        margin-top: 2em;
+        display: flex;
+        justify-content: space-evenly;
     }
 }

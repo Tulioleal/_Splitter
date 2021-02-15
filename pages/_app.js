@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Layout from '../components/Layout/Layout'
 import '../styles/globals.scss'
 import { useEffect } from 'react'
@@ -27,9 +28,15 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Head>
+        <title>Splitter</title>
+        <link rel="shortcut icon" href="/splitter.ico" />
+      </Head>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   )
 }
 

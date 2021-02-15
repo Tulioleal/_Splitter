@@ -6,19 +6,25 @@ const About = () => {
     <div className={styles.container}>
       <h2>
         Think less, <br />
-        <span>Live</span> more
+        <span>Live</span> more.
       </h2>
       <p>
         Splitter is a very simple to use app, created to split bills between you
-        and your friends in a party, reunion or even trip.
+        and your friends in a party or reunion even a trip.
       </p>
       <h3>One</h3>
-      <p>Create a a gatheing</p>
+      <p>Create a gath.</p>
       <h3>Two</h3>
-      <p>Add your friends and what they spent .</p>
+      <p>Add your friends and how much they spent.</p>
       <h3 className={styles.noBckg}>That’s it.</h3>
-      <ButtonLink href="/gatherings" title="Your Gatherings" />
-      <ButtonLink href="/newGathering" title="New Gathering" />
+      <div className={styles.buttons}>
+        <div className={styles.button}>
+          <ButtonLink href="/gatherings" title="Your Gaths" />
+        </div>
+        <div className={styles.button}>
+          <ButtonLink href="/newGathering" title="New Gath" />
+        </div>
+      </div>
     </div>
   );
 };

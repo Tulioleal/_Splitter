@@ -1,7 +1,21 @@
 .container {
 
-  height: 62vh;
+  min-height: 35vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  h2, p, .button{
+    margin: .5em 0em;
+  }
+
+  .buttons{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .button{
+      margin: .75em 0em;
+  }
+  }
 }

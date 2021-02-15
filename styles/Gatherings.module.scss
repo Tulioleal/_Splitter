@@ -1,3 +1,5 @@
+@import '../styles/variables.scss';
+
 .container{
     display: flex;
     flex-direction: column;
@@ -7,4 +9,42 @@
 .marginB {
     margin-bottom: 1em;
     text-align: left;
+}
+
+.gath{
+
+    padding: 1em 0em;
+
+    &:nth-child(2n){
+        background-color: $B-Blue;
+        .gathName{
+            color: $S-LBlue;
+        }
+    }
+
+    &:nth-last-child(2){
+        margin-bottom: 1em;
+    }
+
+    .gathName{
+        margin-bottom: .5em;
+        color: $P-DBlue;
+    }
+
+    ul{
+        padding: 0em;
+        margin: 0em 1em;
+
+
+        li{
+            font-weight: 700;
+            text-align: center;
+            list-style: none;
+
+            display: flex;
+            flex-direction: column;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
 }

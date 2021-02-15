@@ -3,6 +3,8 @@ import styles from "../styles/NewGathering.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import localForage from "localforage";
+import moment from "moment";
+
 
 /* const Friend = ({ placeholder, indexN }) => {
     const [name, setName] = useState("")
@@ -46,6 +48,8 @@ const newGathering = () => {
     },
   ]);
 
+  const createdAt = moment().format('ll')
+
   const addFriend = () => {
     if (friends.length >= 10) {
       return alert("Sory 10 our limit :(");
@@ -55,9 +59,7 @@ const newGathering = () => {
   };
 
   const removeFriend = () => {
-    if (friends.length <= 2) {
-      return alert("You need a least one friend");
-    }
+    if (friends.length <= 2) return alert("You need a least one friend");
     const newFriends = friends.splice(0, friends.length - 1);
     setFriends(newFriends);
   };
@@ -65,15 +67,25 @@ const newGathering = () => {
   const sendGathering = () => {
 
     if ( gathName ) {
-      localForage.setItem(
-        gathName, {
-          friends,
-          'createdAt': Date.now()
-        }
-      ).then((data) => console.log(data))
+
+        localForage.getItem('gatherings')
+        .then( data =>{
+          data.push({
+            gathName : gathName,
+            friends : friends,
+            createdAt: createdAt
+          })
+
+          localForage.setItem('gatherings', data)
+          .then( data => console.log(data) )
+          .catch( err => console.log(err) )
+
+        })
+        .catch( err => console.log(err) )
       return true;
+
     } else {
-      alert("no");
+      alert("The gathering should have a name");
       return false;
     }
   };
@@ -83,9 +95,9 @@ const newGathering = () => {
     sendGathering() && router.push({
       pathname: `/results/calculate`,
       query: {
-        gathName: gathName
+        gathName : gathName,
+        friends : JSON.stringify(friends)
       }
-    
     })
   }
 
@@ -104,7 +116,7 @@ const newGathering = () => {
     <form onSubmit={handleSubmit} className={styles.container}>
       <input
         type="text"
-        placeholder="Gathering name"
+        placeholder="Gath name"
         className={styles.input}
         onChange={(e) => setGathName(e.target.value)}
       />
